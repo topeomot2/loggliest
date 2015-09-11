@@ -1,5 +1,7 @@
 package com.inrista.loggliest;
 
+import android.content.Context;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,23 +23,19 @@ import java.util.Map;
  */
 public class VolleyBulkLogger implements BulkLogger {
 
-
     private static RequestQueue mQueue;
     private static String url;
 
     public Map<String, File> mFileList = new HashMap<>();
 
-    public VolleyBulkLogger(RequestQueue queue,String logglyUrl){
-        mQueue = queue;
 
-        if(logglyUrl != null && !logglyUrl.isEmpty())
-            url = logglyUrl;
-    }
 
     @Override
-    public void setLogglyUrl(String logglyUrl) {
+    public void setLogglyUrl(String logglyUrl, Context mContext) {
         if(logglyUrl != null && !logglyUrl.isEmpty())
             url = logglyUrl;
+
+        mQueue = BulkVolley.getInstance(mContext).getRequestQueue();
     }
 
     @Override
@@ -91,11 +89,12 @@ public class VolleyBulkLogger implements BulkLogger {
                     }
             );
 
-
+            mQueue.add(bulkRequest);
 
         }
         return 0;
     }
+
 
 
 }

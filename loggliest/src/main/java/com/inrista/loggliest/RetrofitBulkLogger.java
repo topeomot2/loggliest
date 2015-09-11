@@ -1,5 +1,7 @@
 package com.inrista.loggliest;
 
+import android.content.Context;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,16 +27,7 @@ public class RetrofitBulkLogger implements BulkLogger {
     private static IBulkLog mBulkLogService;
     private String lurl;
 
-    public RetrofitBulkLogger(String logglyUrl){
 
-        if(logglyUrl != null && !logglyUrl.isEmpty())
-            lurl = logglyUrl;
-
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(lurl)
-                .build();
-        mBulkLogService = restAdapter.create(IBulkLog.class);
-    }
 
 
 
@@ -93,8 +86,17 @@ public class RetrofitBulkLogger implements BulkLogger {
     }
 
     @Override
-    public void setLogglyUrl(String logglyUrl) {
+    public void setLogglyUrl(String logglyUrl, Context mContext) {
+
         if(logglyUrl != null && !logglyUrl.isEmpty())
             lurl = logglyUrl;
+
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(lurl)
+                .build();
+        mBulkLogService = restAdapter.create(IBulkLog.class);
     }
+
+
+
 }

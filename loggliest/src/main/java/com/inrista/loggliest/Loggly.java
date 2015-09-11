@@ -168,7 +168,7 @@ public class Loggly {
         }
 
         /**
-         * Set the Loggly tag that the log messages are tagged with. 
+         * Set the Loggly tag that the log messages are tagged with.
          * If not specified this defaults to the package name.
          * @param logglyTag The Loggly tag
          */
@@ -189,7 +189,7 @@ public class Loggly {
 
         /**
          * Set the interval between Loggly log uploads. Note that short intervals
-         * drains the battery. If not specified this defaults to 900 (15min). Also see 
+         * drains the battery. If not specified this defaults to 900 (15min). Also see
          * {@link #uploadIntervalLogCount(int count)}, when either condition is
          * fulfilled the logs will be uploaded.
          * @param seconds Time in seconds
@@ -201,8 +201,8 @@ public class Loggly {
 
         /**
          * Set the interval between Loggly log uploads. Note that small intervals
-         * drains the battery if you log many messages. If not specified this 
-         * defaults to 500. Also see {@link #uploadIntervalSecs(int seconds)}, 
+         * drains the battery if you log many messages. If not specified this
+         * defaults to 500. Also see {@link #uploadIntervalSecs(int seconds)},
          * when either condition is fulfilled the logs will be uploaded.
          * @param count Number of logs
          */
@@ -214,7 +214,7 @@ public class Loggly {
         /**
          * Set the time before the background log processing stops if no messages have
          * been logged. This processing is automatically resumed when a new message is logged.
-         * This defaults to 1200 seconds (20min) if not specified. 
+         * This defaults to 1200 seconds (20min) if not specified.
          * @param seconds Time in seconds
          * @return
          */
@@ -251,8 +251,8 @@ public class Loggly {
 
         /**
          * Configure the buffer size for log messages that are not yet uploaded.
-         * The oldest messages will be dropped if more info is logged than what 
-         * fits in the buffer. 
+         * The oldest messages will be dropped if more info is logged than what
+         * fits in the buffer.
          * @param size Max size in bytes
          * @return
          */
@@ -287,13 +287,10 @@ public class Loggly {
                 maxSizeOnDisk = MAX_SIZE_ON_DISK_MIN;
 
 
-            if(bulkLogger == null) {
-                bulkLogger = new RetrofitBulkLogger(logglyUrl);
-            }
-            else{
-                nbulkLogger.setLogglyUrl(logglyUrl);
-                bulkLogger = nbulkLogger;
-            }
+            bulkLogger = nbulkLogger;
+            bulkLogger.setLogglyUrl(logglyUrl, context);
+
+
 
 
             if (mInstance == null) {

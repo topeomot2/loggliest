@@ -1,5 +1,7 @@
 package com.inrista.loggliest;
 
+import android.content.Context;
+
 import java.io.File;
 
 /**
@@ -18,5 +20,5 @@ public interface BulkLogger {
     int log(String token, String logglyTag, File dir);
 
 
-    void setLogglyUrl(String logglyUrl);
+    void setLogglyUrl(String logglyUrl, Context context);
 }
